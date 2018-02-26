@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1"> <!-- Просто так -->
+        <title>Memory Game</title>
+        <link rel="stylesheet" href="css/style.css"></link>
+        <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+        <script type="text/javascript" src="js/game.js"></script>
+        <script>
+            jQuery(function() {
+            $('.startGame').click( function () {
+                $('.game').gameStart({
+                    countCards: 18,
+                    time: 5000
+                });
+            });
+        });
+        </script>
+    </head>
+    <body>
+        <div id="mainBody" data-tid="App">
+            <div class="start">
+                <img src="images/StartGame.png" class="imageStart">
+                <div class="nameGame">MEMORY GAME</div>
+                <button class="buttonStartGame startGame" data-tid="NewGame-startGame">Начать игру</button>
+            </div>
+            <div class="game">
+                <div class="gameHead">
+                    <button class="restart startGame" data-tid="Menu-newGame">Начать заново</button>
+                    <div class="scoresBlock">
+                        Очки:&nbsp;
+                        <div class="scores" data-tid="Menu-scores">0</div>
+                    </div>
+                </div>
+                <div class="gameField" data-tid="Deck"></div>
+            </div>
+            <div class="finish">
+                <img src="images/Group 2.png" class="imageEnd">
+                <div class="result"></div>
+                <div class="resultScores">
+                    Ваш итоговый счет:&nbsp;
+                    <div class="scores">0</div>
+                </div><br>
+                <button class="buttonRestart startGame" value="StartGame" data-tid="EndGame-retryGame">Еще раз</button>
+            </div>
+        </div>
+    </body>
+</html>
