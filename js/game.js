@@ -44,7 +44,6 @@ jQuery(function() {
             return this.numX + ' ' + this.numY;
         },
         getСoordinateX: function() {
-            console.log(this.numX);
             switch (this.numX) {
                 case 12 :
 
@@ -126,6 +125,7 @@ jQuery(function() {
                 $('.finish').css('display', 'none');                
                 $('.game').css('display', 'inline-block');
                 $('.gameField').empty();
+                $('.scores').text(choiseCard.scoresGame);
                 cards = newChoiseCards().shuffle();
                 createCardsOnDesp();
                 setTimeout(function() {
@@ -254,7 +254,7 @@ jQuery(function() {
                             choiseCard.lastCardName = null;
                             addScore();
                             finish();
-                        }, 300);
+                        }, 600);
                     } else {
                         setTimeout(function() {
                             cards[id].close();
@@ -263,7 +263,7 @@ jQuery(function() {
                             choiseCard.lastCardId = null;
                             choiseCard.lastCardName = null;
                             deductScore();
-                        }, 350);
+                        }, 750);
                     }
                 } else {
                     choiseCard.isOpen = true;

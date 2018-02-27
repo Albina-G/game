@@ -59,6 +59,10 @@ body {
     font-weight: bold;
     color: #fff;
     opacity: 0.85;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    -webkit-user-select: none;
 }
 
 .nameGame {
@@ -109,6 +113,10 @@ body {
     font-size: 14px;
     letter-spacing: -0.25px;
     border: 0px;
+}
+
+button {
+    outline: 0 !important;
 }
 
 .allStringCard {
@@ -180,6 +188,11 @@ body {
     transition-duration: 300ms;
 }
 
+.imageCard.openCard,
+.shirt.openShirt {
+    transition-delay: 300ms;
+}
+
 .part1,
 .part4 {
     width: 17px;
@@ -238,5 +251,3 @@ only screen and (min-resolution: 2dppx) {
         background-size: 940px 636px;
     }
 }
-
-/*Просто так */

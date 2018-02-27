@@ -2,14 +2,13 @@
 <html lang="ru">
     <head>
         <meta charset="utf-8">
-        <!--<meta name="viewport" content="width=device-width, initial-scale=1">  Просто так -->
         <title>Memory Game</title>
         <link rel="stylesheet" href="css/style.css"></link>
         <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
         <script type="text/javascript" src="js/game.js"></script>
         <script>
             jQuery(function() {
-            $('.startGame').click( function () {
+            $('.startGame').mouseup( function (event) {
                 $('.game').gameStart({
                     countCards: 18,
                     time: 5000
