@@ -44,46 +44,60 @@ jQuery(function() {
             return this.numX + ' ' + this.numY;
         },
         getСoordinateX: function() {
-            switch (this.numX) {
-                case 12 :
+            var formula = (this.numX - 1) * (-52);
+            var coefficients = [0, 0, 0, 1, 2, 2, 2, 3, 3, 3, 4, 5, 51, 98];
 
-                    return (this.numX - 1) * (-60) - 53;
-                    break;
-                case 13 :
-
-                    return (this.numX - 1) * (-60) - 106;
-                    break;
+            return formula - coefficients[this.numX];
+            /*switch (this.numX) {
+                case 3 :
+                    return formula - 1;
+                case 4 :
+                case 5 :
+                case 6 :
+                    return formula - 2;
+                case 7 :
+                case 8 :
+                case 9 :
+                    return formula - 3;
+                case 10 :
+                    return formula - 4;
                 case 11 :
+                    return formula - 5;
+                case 12 :
+                //return (this.numX - 1) * (-60) - 53;
+                    return formula - 51;
+                case 13 :
+                //return (this.numX - 1) * (-60) - 106;
+                    return formula - 98;
                 default :
-
-                    return (this.numX - 1) * (-60);
-                    break;
-            }
+                    return formula;
+            }*/
         },
         getСoordinateY: function() {
 
-            return (this.numY - 1) * (-159);
+            //return (this.numY - 1) * (-159);
+            return (this.numY - 1) * (-139);
         },
         setId: function(id) {
             this.id = id;
         },
         delete: function() {
-            $('div#' + this.id + '.imageCard').css('display', 'none');
-            $('div#' + this.id + '.shirt').css('display', 'none');
+            $('div#' + this.id + '.card-block__image-сard').css('display', 'none');
+            $('div#' + this.id + '.card-block__shirt').css('display', 'none');
             this.isDelete = true;
         },
-        close: function() {
-            $('div#' + this.id + '.imageCard').removeClass('openCard');
-            $('div#' + this.id + '.shirt').removeClass('closeShirt');
-            $('div#' + this.id + '.imageCard').addClass('closeCard');
-            $('div#' + this.id + '.shirt').addClass('openShirt');
+        close: function(choiseCard) {
+            $('div#' + this.id + '.card-block__image-сard').removeClass('openCard');
+            $('div#' + this.id + '.card-block__shirt').removeClass('closeShirt');
+            $('div#' + this.id + '.card-block__image-сard').addClass('closeCard');
+            $('div#' + this.id + '.card-block__shirt').addClass('openShirt');
             this.isClose = true;
         },
         open: function() {
-            $('div#' + this.id + '.imageCard').removeClass('closeCard');
-            $('div#' + this.id + '.shirt').removeClass('openShirt');                
-            $('div#' + this.id + '.shirt').addClass('closeShirt');
-            $('div#' + this.id + '.imageCard').addClass('openCard');
+            $('div#' + this.id + '.card-block__image-сard').removeClass('closeCard');
+            $('div#' + this.id + '.card-block__shirt').removeClass('openShirt');                
+            $('div#' + this.id + '.card-block__shirt').addClass('closeShirt');
+            $('div#' + this.id + '.card-block__image-сard').addClass('openCard');
             this.isClose = false;
         },
         isPart: function() {
@@ -116,7 +130,8 @@ jQuery(function() {
                 lastCardName: null,
                 lastCardId: null,
                 isOpen: false,
-                scoresGame: 0
+                scoresGame: 0,
+                desable: false
             };
             init();
 
@@ -124,8 +139,8 @@ jQuery(function() {
                 $('.start').css('display', 'none');
                 $('.finish').css('display', 'none');                
                 $('.game').css('display', 'inline-block');
-                $('.gameField').empty();
-                $('.scores').text(choiseCard.scoresGame);
+                $('.deck').empty();
+                $('.scores-block__mark').text(choiseCard.scoresGame);
                 cards = newChoiseCards().shuffle();
                 createCardsOnDesp();
                 setTimeout(function() {
@@ -163,17 +178,19 @@ jQuery(function() {
                 for (var countElem = 0; countElem < settings.countCards; countElem++) {
                     if (countElem % settings.width === 0) {
                         number++;
-                        $('.gameField').append('<div class="allStringCard stringCards' + number + '">');
+                        $('.deck').append('<div class="deck__string-game stringNum' + number + '">');
                     }
                     cards[countElem].setId(countElem);
-                    $('.stringCards' + number).append('<div id="' + countElem + '" class="allCards">');
-                    $('div#' + countElem).append('<div id="' + countElem + '" class="shirt openShirt" data-tid="Card-flipped">');                                 
-                    $('div#' + countElem).append('<div id="' + countElem + '" class="imageCard closeCard" data-tid="Card">');
+                    $('.stringNum' + number).append('<div id="' + countElem + '" class="card-block">');
+                    $('div#' + countElem).append('<div id="' + countElem 
+                        + '" class="card-block__shirt openShirt" data-tid="Card-flipped">');                                 
+                    $('div#' + countElem).append('<div id="' + countElem 
+                        + '" class="card-block__image-сard closeCard" data-tid="Card">');
                     if (cards[countElem].isPart()) {
                         divideIntoParts(countElem);
                     } else {
-                        $('div#' + countElem + '.imageCard').addClass('noPart');
-                        $('div#' + countElem + '.imageCard').css(
+                        $('div#' + countElem + '.card-block__image-сard').addClass('noPart');
+                        $('div#' + countElem + '.card-block__image-сard').css(
                             'background-position', cards[countElem].getСoordinateX() + 'px ' 
                                 + cards[countElem].getСoordinateY() + 'px');
                     }
@@ -182,14 +199,14 @@ jQuery(function() {
 
             function divideIntoParts(countElem) {
                 for (var i = 1; i <= 4; i++) {
-                    $('div#' + countElem + '.imageCard').append('<div class="part' + i + '">');
+                    $('div#' + countElem + '.card-block__image-сard').append('<div class="part' + i + '">');
                     var coordinateX = '';
                     if (i === 2 || i === 3) {
-                        coordinateX = (cards[countElem].getСoordinateX() - 17) + 'px ';
+                        coordinateX = (cards[countElem].getСoordinateX() - 14) + 'px ';
                     } else {
                         coordinateX = cards[countElem].getСoordinateX() + 'px ';
                     }
-                    $('div#' + countElem + '.imageCard .part' + i).css('background-position', coordinateX + 
+                    $('div#' + countElem + '.card-block__image-сard .part' + i).css('background-position', coordinateX + 
                         cards[countElem].getСoordinateY() + 'px');
                 }
             }
@@ -203,7 +220,7 @@ jQuery(function() {
                     return count;
                 }, 0);
                 choiseCard.scoresGame += countDelete * 42;
-                $('.scores').text(choiseCard.scoresGame);
+                $('.scores-block__mark').text(choiseCard.scoresGame);
             }
 
             function deductScore() {
@@ -215,7 +232,7 @@ jQuery(function() {
                     return count;
                 }, 0);
                 choiseCard.scoresGame -= countDelete * 42;
-                $('.scores').text(choiseCard.scoresGame);
+                $('.scores-block__mark').text(choiseCard.scoresGame);
             }
 
             function finish() {
@@ -230,16 +247,17 @@ jQuery(function() {
                     $('.game').css('display', 'none');
                     $('.finish').css('display', 'inline-block');
                     if (choiseCard.scoresGame <= 0) {
-                        $('.result').text('Вы проиграли!');
+                        $('.finish__result').text('Вы проиграли!');
                     } else {
-                        $('.result').text('Поздравляем!');
+                        $('.finish__result').text('Поздравляем!');
                     }
+                    $('.result-scores__mark').text(choiseCard.scoresGame);
                 }
             }
 
-            $('.allCards').click(function (event) {
+            $('.card-block').click(function (event) {
                 var id = event.target.id;
-                if (cards[id].isDelete || !cards[id].isClose) {
+                if (cards[id].isDelete || !cards[id].isClose || choiseCard.desable) {
 
                     return;
                 }
@@ -254,16 +272,20 @@ jQuery(function() {
                             choiseCard.lastCardName = null;
                             addScore();
                             finish();
-                        }, 600);
+                        }, 450);
                     } else {
+                        choiseCard.desable = true;
                         setTimeout(function() {
                             cards[id].close();
                             cards[choiseCard.lastCardId].close();
+                            setTimeout(function(){
+                                choiseCard.desable = false;
+                            }, 300);
                             choiseCard.isOpen = false;
                             choiseCard.lastCardId = null;
                             choiseCard.lastCardName = null;
                             deductScore();
-                        }, 750);
+                        }, 600);
                     }
                 } else {
                     choiseCard.isOpen = true;
