@@ -127,11 +127,11 @@ jQuery(function() {
                     cards.forEach(function (card) {
                         card.open();
                     });
-                    /*setTimeout(function() {
+                    setTimeout(function() {
                         cards.forEach(function (card) {
                             card.close();
                         });
-                    }, settings.time);*/
+                    }, settings.time);
                 }, 500);
             }
 
