@@ -8,14 +8,14 @@ body {
 
 .mainBody {
     width: 100%;
-    min-width: 720px;
+    /*min-width: 720px;*/
     height: 100%;
-    min-height: 550px;
+    /*min-height: 550px;*/
     text-align: center;
     position: fixed;
     top: 0;
     left: 0;
-    padding: 10px;
+    /*padding: 10px;*/
 }
 
 .mainBody::before {
@@ -27,12 +27,13 @@ body {
 
 .start {
     display: inline-block;
+    width: 503px;
+    vertical-align: middle;
 }
 
-.start,
 .game,
 .finish {
-    width: 700px;
+    width: 720px;
     vertical-align: middle;
 }
 
@@ -45,6 +46,7 @@ body {
     width: 503px;
     height: 262px;
     background: url('../images/StartGame.png') no-repeat;
+    background-size: contain;
     display: inline-block;
 }
 
@@ -53,6 +55,7 @@ body {
     height: 275px;
     margin: 9px;
     background: url('../images/Group 2.png') no-repeat;
+    background-size: contain;
     display: inline-block;    
 }
 
@@ -110,6 +113,7 @@ body {
 
 .deck {
     width: 100%;
+    margin: 20px -10px;
 }
 
 .menu {
@@ -131,13 +135,13 @@ button {
     outline: 0 !important;
 }
 
-.deck__string-game {
-    width: 100%;
+/*.deck__string-game {
+    width: 100%;*/
     /*height: 159px;*/
-    height: 139px;
+    /*height: 139px;
     margin: 20px 0;
     display: block;
-}
+}*/
 
 .card-block,
 .card-block__shirt,
@@ -155,19 +159,12 @@ button {
 }
 
 .card-block {
-    margin: 0 10px;
+    margin: 10px;
+    float: left;
 }
 
-.card-block:first-child {
-
-    margin: 0 10px 0 0;
-
-}
-
-.card-block:last-child {
-
-    margin: 0 0 0 10px;
-
+.card-block:nth-child(6n+1) {
+    clear: left;
 }
 
 .card-block__image-сard {
@@ -188,7 +185,7 @@ button {
 
 .scores-block {
     position: absolute;
-    right: 0px;
+    right: 20px;
 }
 
 .finish {
@@ -252,7 +249,7 @@ button {
     /*background: url('../images/sprite.png');
     background-size: 940px 636px;*/
     height: 139px;
-    background: url('../images/sprite_v2.png');
+    background: url('../images/sprite_v3.png');
     background-size: 822px 556px;
     /*height: 159px;*/
 }
@@ -295,23 +292,95 @@ only screen and (min-resolution: 2dppx) {
     .part3 {
         /*background: url('../images/sprite@2x.png');
         background-size: 940px 636px;*/
-        background: url('../images/sprite@2x_v2.png');
+        background: url('../images/sprite@2x_v3.png');
         background-size: 822px 556px;
     }
 
     .start__image {
         background: url('../images/StartGame@2x.png') no-repeat;
-        background-size: 503px 262px;
+        /*background-size: 503px 262px;*/
+        background-size: contain;
     }
     
     .finish__image {
         background: url('../images/Group 2@2x.png') no-repeat;
-        background-size: 516px 275px;
+        /*background-size: 516px 275px;*/
+        background-size: contain;
     }
 }
 
-@media (max-width: 720px), (max-height: 600px) {
+@media (max-width: 720px) and (min-width: 656px) {
+    .start {
+        width: 503px;
+    }
+
+    .game,
+    .finish {
+        width: 656px;
+    }
+
+    .card-block:nth-child(n) {
+        clear: none;
+        margin: 5px;
+    }
+
+    .card-block:nth-child(6n + 1) {
+        clear: left;
+        margin: 5px 5px 5px 3px;
+    }
+
+    .card-block:nth-child(6n + 6) {
+        margin: 5px 3px 5px 5px;
+    }
+}
+
+@media (max-width: 656px) and (min-width: 360px) {
     .mainBody {
-        position: relative;
+        overflow-y: auto;
+    }
+
+    .start,
+    .finish,
+    .game {
+        width: 360px;
+    }
+
+    .start__image,
+    .finish__image {
+        width: 95%;
+    }
+
+    .card-block:nth-child(n) {
+        clear: none;
+    }
+
+    .card-block:nth-child(3n + 1) {
+        clear: left;
+    }
+}
+
+@media (max-width: 360px)  {
+    .mainBody {
+        overflow-y: auto;
+    }
+
+    .start,
+    .finish,
+    .game {
+        width: 315px;
+    }
+
+    .start__image,
+    .finish__image {
+        width: 95%;
+    }
+
+    .card-block:nth-child(n) {
+        clear: none;
+        margin: 2px;
+    }
+
+    .deck {
+        margin: 20px -3px;
     }
 }

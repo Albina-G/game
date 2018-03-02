@@ -44,34 +44,14 @@ jQuery(function() {
             return this.numX + ' ' + this.numY;
         },
         getСoordinateX: function() {
-            var formula = (this.numX - 1) * (-52);
-            var coefficients = [0, 0, 0, 1, 2, 2, 2, 3, 3, 3, 4, 5, 51, 98];
-
-            return formula - coefficients[this.numX];
-            /*switch (this.numX) {
-                case 3 :
-                    return formula - 1;
-                case 4 :
-                case 5 :
-                case 6 :
-                    return formula - 2;
-                case 7 :
-                case 8 :
-                case 9 :
-                    return formula - 3;
-                case 10 :
-                    return formula - 4;
-                case 11 :
-                    return formula - 5;
-                case 12 :
-                //return (this.numX - 1) * (-60) - 53;
-                    return formula - 51;
-                case 13 :
-                //return (this.numX - 1) * (-60) - 106;
-                    return formula - 98;
-                default :
-                    return formula;
-            }*/
+            switch (this.numX) {
+                case 12: 
+                    return (this.numX - 1) * (-52) - 51;
+                case 13:
+                    return (this.numX - 1) * (-52) - 98;
+                default:
+                    return (this.numX - 1) * (-52);
+            }
         },
         getСoordinateY: function() {
 
@@ -147,11 +127,11 @@ jQuery(function() {
                     cards.forEach(function (card) {
                         card.open();
                     });
-                    setTimeout(function() {
+                    /*setTimeout(function() {
                         cards.forEach(function (card) {
                             card.close();
                         });
-                    }, settings.time);
+                    }, settings.time);*/
                 }, 500);
             }
 
@@ -176,12 +156,13 @@ jQuery(function() {
             function createCardsOnDesp() {
                 var number = 0;
                 for (var countElem = 0; countElem < settings.countCards; countElem++) {
-                    if (countElem % settings.width === 0) {
+                    /*if (countElem % settings.width === 0) {
                         number++;
                         $('.deck').append('<div class="deck__string-game stringNum' + number + '">');
-                    }
+                    }*/
                     cards[countElem].setId(countElem);
-                    $('.stringNum' + number).append('<div id="' + countElem + '" class="card-block">');
+                    // $('.stringNum' + number).append('<div id="' + countElem + '" class="card-block">');
+                    $('.deck').append('<div id="' + countElem + '" class="card-block">');
                     $('div#' + countElem).append('<div id="' + countElem 
                         + '" class="card-block__shirt openShirt" data-tid="Card-flipped">');                                 
                     $('div#' + countElem).append('<div id="' + countElem 
