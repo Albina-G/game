@@ -132,7 +132,7 @@ jQuery(function() {
                             card.close();
                         });
                     }, settings.time);
-                }, 500);
+                }, 600);
             }
 
             function newChoiseCards() {
