@@ -55,7 +55,6 @@ jQuery(function() {
         },
         getСoordinateY: function() {
 
-            //return (this.numY - 1) * (-159);
             return (this.numY - 1) * (-139);
         },
         setId: function(id) {
@@ -111,7 +110,7 @@ jQuery(function() {
                 lastCardId: null,
                 isOpen: false,
                 scoresGame: 0,
-                desable: false
+                desable: true
             };
             init();
 
@@ -130,6 +129,7 @@ jQuery(function() {
                     setTimeout(function() {
                         cards.forEach(function (card) {
                             card.close();
+                            desableCard();
                         });
                     }, settings.time);
                 }, 600);
@@ -156,12 +156,7 @@ jQuery(function() {
             function createCardsOnDesp() {
                 var number = 0;
                 for (var countElem = 0; countElem < settings.countCards; countElem++) {
-                    /*if (countElem % settings.width === 0) {
-                        number++;
-                        $('.deck').append('<div class="deck__string-game stringNum' + number + '">');
-                    }*/
                     cards[countElem].setId(countElem);
-                    // $('.stringNum' + number).append('<div id="' + countElem + '" class="card-block">');
                     $('.deck').append('<div id="' + countElem + '" class="card-block">');
                     $('div#' + countElem).append('<div id="' + countElem 
                         + '" class="card-block__shirt openShirt" data-tid="Card-flipped">');                                 
@@ -216,6 +211,12 @@ jQuery(function() {
                 $('.scores-block__mark').text(choiseCard.scoresGame);
             }
 
+            function desableCard() {
+                setTimeout(function(){
+                    choiseCard.desable = false;
+                }, 300);
+            }
+
             function finish() {
                 var countDelete = cards.reduce(function (count, card) {
                     if (card.isDelete) {
@@ -245,9 +246,11 @@ jQuery(function() {
                 cards[id].open();
                 if (choiseCard.isOpen) {
                     if (choiseCard.lastCardName === cards[id].getName()) {
+                        choiseCard.desable = true;
                         setTimeout(function() {
                             cards[id].delete();
                             cards[choiseCard.lastCardId].delete();
+                            desableCard();
                             choiseCard.isOpen = false;
                             choiseCard.lastCardId = null;
                             choiseCard.lastCardName = null;
@@ -259,9 +262,7 @@ jQuery(function() {
                         setTimeout(function() {
                             cards[id].close();
                             cards[choiseCard.lastCardId].close();
-                            setTimeout(function(){
-                                choiseCard.desable = false;
-                            }, 300);
+                            desableCard();
                             choiseCard.isOpen = false;
                             choiseCard.lastCardId = null;
                             choiseCard.lastCardName = null;
